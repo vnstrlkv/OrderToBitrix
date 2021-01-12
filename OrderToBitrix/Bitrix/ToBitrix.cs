@@ -38,14 +38,28 @@ namespace OrderToBitrix.Bitrix
         // {fields:{TITLE:'task for test', RESPONSIBLE_ID:1}
         //  Dictionary<string,int> Staff = new Dictionary<string, int>();
 
-        private static string GetStaffID(string TypeOrder)
+        private static string GetStaffID(string Department)
         {
+            Console.WriteLine(Department + " StafId");
             string id = null;
-            switch (TypeOrder)
+            switch (Department)
             {
-                case "С участием Мебели":
+                case "Мебель Sale":
                     {
                         id = "32";
+                        Console.WriteLine(Department + " StafId");
+                        break;
+                    }
+                case "Отдел Фасада":
+                    {
+                        id = "34";
+                        Console.WriteLine(Department + " StafId");
+                        break;
+                    }
+                case "Отдел Камня":
+                    {
+                        id = "34";
+                        Console.WriteLine(Department + " StafId");
                         break;
                     }
                 default:
@@ -57,14 +71,28 @@ namespace OrderToBitrix.Bitrix
         }
 
         
-        private static string GetGroupID(string TypeOrder)
+        private static string GetGroupID(string Department)
         {
+            Console.WriteLine(Department + " GroupID");
             string id = null;
-            switch (TypeOrder)
+            switch (Department)
             {
-                case "С участием Мебели":
+                case "Мебель Sale":
                     {
                         id = "20";
+                        Console.WriteLine(Department + " GroupID");
+                        break;
+                    }
+                case "Отдел Фасада":
+                    {
+                        id = "50";
+                        Console.WriteLine(Department + " GroupID");
+                        break;
+                    }
+                case "Отдел Камня":
+                    {
+                        id = "50";
+                        Console.WriteLine(Department + " GroupID");
                         break;
                     }
                 default:
@@ -140,7 +168,7 @@ namespace OrderToBitrix.Bitrix
         {
             string _TITLE, _DESCRIPTION, _DEADLINE,  _ALLOW_CHANGE_DEADLINE, _GROUP_ID, _RESPONSIBLE_ID, _CREATED_BY, _TASK_CONTROL;
             string stringPayload;
-            if (currentOrder.SecondaryOrder != "") //проверка на вторичный заказ
+            if (true) //проверка на вторичный заказ
             {
 
                 _TITLE = Regex.Match(currentOrder.Number, @"\d+").Value.ToString().TrimStart('0') + "_" + currentOrder.Comment + " " + currentOrder.Organization;
@@ -156,8 +184,8 @@ namespace OrderToBitrix.Bitrix
                     _DEADLINE = currentOrder.DatePass;
                     _ALLOW_CHANGE_DEADLINE = "N";
                     _TASK_CONTROL = "Y";
-                    _GROUP_ID = GetGroupID(currentOrder.TypeOrder);
-                    _RESPONSIBLE_ID = GetStaffID(currentOrder.TypeOrder);
+                    _GROUP_ID = GetGroupID(currentOrder.Department);
+                    _RESPONSIBLE_ID = GetStaffID(currentOrder.Department);
                     _CREATED_BY = await GetIdStaffFromBitrix(currentOrder.Manager);
                     if (IDtask == "")
                     {
