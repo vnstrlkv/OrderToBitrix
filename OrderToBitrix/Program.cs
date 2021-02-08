@@ -24,13 +24,14 @@ namespace OrderToBitrix
 
             // string path = @"D:\IT\БЭКАПЫ\000005220.xml";
 
-           //     XMLtoOrder XML = new XMLtoOrder();
-           //
-           //    Order test = XML.GetOrder(path);
-           //
+            //     XMLtoOrder XML = new XMLtoOrder();
+            //
+            //    Order test = XML.GetOrder(path);
+            //
             //    ToBitrix.Start(test);
 
 
+            Bitrix.Bitrix.Init();
 
             INIManager PATH = new INIManager("c:\\config.ini");
             string path = PATH.GetPrivateString("PATH", "path");

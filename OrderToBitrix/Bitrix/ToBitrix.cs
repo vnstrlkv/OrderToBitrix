@@ -46,19 +46,19 @@ namespace OrderToBitrix.Bitrix
             {
                 case "Мебель Sale":
                     {
-                        id = "32";
+                        id = Bitrix.StaffSale;
                         Console.WriteLine(Department + " StafId");
                         break;
                     }
                 case "Отдел Фасада":
                     {
-                        id = "34";
+                        id = Bitrix.StaffFas;
                         Console.WriteLine(Department + " StafId");
                         break;
                     }
                 case "Отдел Камня":
                     {
-                        id = "34";
+                        id = Bitrix.StaffStone;
                         Console.WriteLine(Department + " StafId");
                         break;
                     }
@@ -79,19 +79,19 @@ namespace OrderToBitrix.Bitrix
             {
                 case "Мебель Sale":
                     {
-                        id = "20";
+                        id = Bitrix.DepSale;
                         Console.WriteLine(Department + " GroupID");
                         break;
                     }
                 case "Отдел Фасада":
                     {
-                        id = "50";
+                        id = Bitrix.DepFas;
                         Console.WriteLine(Department + " GroupID");
                         break;
                     }
                 case "Отдел Камня":
                     {
-                        id = "50";
+                        id = Bitrix.DepStone;
                         Console.WriteLine(Department + " GroupID");
                         break;
                     }
@@ -202,8 +202,8 @@ namespace OrderToBitrix.Bitrix
                        GROUP_ID = _GROUP_ID,
                        RESPONSIBLE_ID = _RESPONSIBLE_ID,
                        CREATED_BY = _CREATED_BY,
-                       ACCOMPLICES= new[] {"576"},
-                      AUDITORS = new[] {"26", "22", "108"}
+                       ACCOMPLICES= new[] {Bitrix.StaffSale},
+                      AUDITORS = new[] { Bitrix.Direct1, Bitrix.Direct2, Bitrix.Direct3 }
 
                    }
 
@@ -251,12 +251,10 @@ namespace OrderToBitrix.Bitrix
             string _NAME=mystring[1], _LAST_NAME= mystring[0];
 
             string ID=null;
-            INIManager BTX = new INIManager("c:\\config.ini");
-            string BitrixName = BTX.GetPrivateString("BTX", "logPD");
-            string BitrixPass = BTX.GetPrivateString("BTX", "pasPD");
+           
             string task = "user.search.json";
             
-            string url = "https://" + BitrixName + "/rest/32/" + BitrixPass + "/"+task;
+            string url = "https://" + Bitrix.BitrixName + "/rest/32/" + Bitrix.BitrixPass + "/"+task;
             // Serialize our concrete class into a JSON String
 
             var stringPayload = await Task.Run(() => JsonConvert.SerializeObject(
@@ -306,12 +304,10 @@ namespace OrderToBitrix.Bitrix
             string _TITLE = TaskName;
 
             string ID = null;
-            INIManager BTX = new INIManager("c:\\config.ini");
-            string BitrixName = BTX.GetPrivateString("BTX", "logPD");
-            string BitrixPass = BTX.GetPrivateString("BTX", "pasPD");
+           
             string task = "tasks.task.list.json";
 
-            string url = "https://" + BitrixName + "/rest/32/" + BitrixPass + "/" + task;
+            string url = "https://" + Bitrix.BitrixName + "/rest/32/" + Bitrix.BitrixPass + "/" + task;
             // Serialize our concrete class into a JSON String
 
             var stringPayload = await Task.Run(() => JsonConvert.SerializeObject(
@@ -361,9 +357,7 @@ namespace OrderToBitrix.Bitrix
         private static async Task<string> AddTaskToBitrix(Order currentOrder)
         {
 
-            INIManager BTX = new INIManager("c:\\config.ini");
-            string BitrixName = BTX.GetPrivateString("BTX", "logPD");
-            string BitrixPass = BTX.GetPrivateString("BTX", "pasPD");
+        
             string task = "tasks.task.add.json";
           
            
@@ -374,7 +368,7 @@ namespace OrderToBitrix.Bitrix
             {
                 if(stringPayload1[1].ToString()!="")
                      task = "tasks.task.update.json";
-                string url = "https://" + BitrixName + "/rest/32/" + BitrixPass + "/" + task;
+                string url = "https://" + Bitrix.BitrixName + "/rest/32/" + Bitrix.BitrixPass + "/" + task;
                 // Wrap our JSON inside a StringContent which then can be used by the HttpClient class
                 var httpContent = new StringContent(stringPayload1[0].ToString(), Encoding.UTF8, "application/json");
 
@@ -407,12 +401,10 @@ namespace OrderToBitrix.Bitrix
             ;
 
             string ID = null;
-            INIManager BTX = new INIManager("c:\\config.ini");
-            string BitrixName = BTX.GetPrivateString("BTX", "logPD");
-            string BitrixPass = BTX.GetPrivateString("BTX", "pasPD");
+            
             string task = "disk.folder.addsubfolder.json";
 
-            string url = "https://" + BitrixName + "/rest/32/" + BitrixPass + "/" + task;
+            string url = "https://" + Bitrix.BitrixName + "/rest/32/" + Bitrix.BitrixPass + "/" + task;
             // Serialize our concrete class into a JSON String
 
             var stringPayload = await Task.Run(() => JsonConvert.SerializeObject(
